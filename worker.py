@@ -8,7 +8,8 @@ from uploader import upload_to_bale
 with open("config.json") as f:
     config = json.load(f)
 
-def process_file(bot, file_id, file_name, telegram_user_id):
+
+async def process_file(bot, file_id, file_name, telegram_user_id):
     temp_dir = config["temp_dir"]
     os.makedirs(temp_dir, exist_ok=True)
 
@@ -23,7 +24,7 @@ def process_file(bot, file_id, file_name, telegram_user_id):
     # split
     parts = split_file(file_path, user_dir, config["chunk_size_mb"])
 
-    # upload (round robin)
+    # upload round robin
     bale_chat_id = config["user_map"][telegram_user_id]
     bots = config["bale_bots"]
 
@@ -40,5 +41,4 @@ def process_file(bot, file_id, file_name, telegram_user_id):
                 if retry == 0:
                     raise
 
-    # cleanup
     shutil.rmtree(user_dir)

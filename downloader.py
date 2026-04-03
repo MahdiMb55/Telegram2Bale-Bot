@@ -1,9 +1,10 @@
 import requests
-import os
 
-def download_file(bot, file_id, dest_path):
-    file = bot.get_file(file_id)
-    url = file.file_path
+async def download_file(bot, file_id, dest_path):
+    file = await bot.get_file(file_id)
+    file_path = file.file_path
+
+    url = f"https://api.telegram.org/file/bot{bot.token}/{file_path}"
 
     with requests.get(url, stream=True) as r:
         r.raise_for_status()

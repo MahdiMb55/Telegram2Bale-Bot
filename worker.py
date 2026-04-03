@@ -18,7 +18,7 @@ def process_file(bot, file_id, file_name, telegram_user_id):
     file_path = os.path.join(user_dir, file_name)
 
     # دانلود
-    download_file(bot, file_id, file_path)
+    await download_file(bot, file_id, file_path)
 
     # split
     parts = split_file(file_path, user_dir, config["chunk_size_mb"])

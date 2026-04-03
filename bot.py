@@ -9,6 +9,8 @@ with open("config.json") as f:
 is_processing = False
 
 async def handle_file(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    print("MESSAGE TYPE:", update.message)
+    print(update.message.to_dict())
     global is_processing
 
     if is_processing:
